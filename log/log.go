@@ -2,8 +2,6 @@
 
 package log
 
-import "fmt"
-
-func main() {
-	fmt.Println("我是日志")
+type Logger interface {
+	InfoW(msg string, keyVals ...interface{})
 }
