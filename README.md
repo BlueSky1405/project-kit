@@ -5,16 +5,19 @@
 
 ```
 .
-├── README.md               // kit包介绍
+├── README.md
 ├── configcenter
-│   ├── configcenter.go     // 配置中心通用接口
-│   ├── nacos.go            // 配置中心基于nacos的实现
-│   └── nacos_test.go       // 测试
+│   ├── configcenter.go         // 配置中心通用接口
+│   ├── nacos.go                // nacos配置中心实现
+│   └── nacos_test.go           // 测试及事例
+├── database
+│   └── mysql
+│       ├── mysql.go            // mysql连接
+│       └── mysql_test.go       // 测试及事例
 ├── go.mod
 ├── go.sum
 └── log
-    ├── log.go              // 日志包通用接口
-    ├── zap.go              // 日志包基于zap的实现
-    └── zap_test.go         // 测试
-
+    ├── log.go                  // 日志通用接口
+    ├── zap.go                  // zap日志实现
+    └── zap_test.go             // 测试及事例
 ```
