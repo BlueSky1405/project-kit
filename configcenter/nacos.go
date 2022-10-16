@@ -1,6 +1,7 @@
 package configcenter
 
 import (
+	"encoding/json"
 	"github.com/nacos-group/nacos-sdk-go/clients"
 	"github.com/nacos-group/nacos-sdk-go/clients/config_client"
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
@@ -34,6 +35,17 @@ func (c *NacosConfigCenter) Get(key string) (string, error) {
 }
 
 func (c *NacosConfigCenter) GetUnmarshalJSON(key string, des interface{}) error {
+	config, err := c.cli.GetConfig(vo.ConfigParam{
+		DataId: key,
+		Group:  c.group,
+	})
+	if err != nil {
+		return errors.Wrapf(err, "NacosConfigCenter Get fail, key:%s", key)
+	}
+
+	if err := json.Unmarshal([]byte(config), des); err != nil {
+		return errors.Wrapf(err, "NacosConfigCenter json Unmarshal fail, key:%s", key)
+	}
 	return nil
 }
 
