@@ -1,4 +1,5 @@
 # project-kit
+
 海岸蓝天kit工具包
 
 ## kit项目结构
@@ -10,6 +11,9 @@
 │   ├── configcenter.go         // 配置中心通用接口
 │   ├── nacos.go                // nacos配置中心实现
 │   └── nacos_test.go           // 测试及事例
+├── cron
+│   ├── cron.go                 // 定时器封装
+│   └── cron_test.go            // 测试及事例
 ├── database
 │   └── mysql
 │       ├── mysql.go            // mysql连接

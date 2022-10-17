@@ -2,6 +2,7 @@ package log
 
 import (
 	"fmt"
+	"github.com/pkg/errors"
 	"os"
 
 	"go.uber.org/zap"
@@ -34,7 +35,7 @@ func (l *zapLogger) FatalW(msg string, keyVals ...interface{}) {
 }
 
 func (l *zapLogger) log(level Level, msg string, keyVals ...interface{}) {
-	if len(keyVals) == 0 || len(keyVals)%2 != 0 {
+	if len(keyVals)%2 != 0 {
 		l.logger.Warn("keyVals must appear in pairs")
 		return
 	}
@@ -60,23 +61,17 @@ func (l *zapLogger) log(level Level, msg string, keyVals ...interface{}) {
 	}
 }
 
-// NewZapLogger 实例化实现Logger接口的日志对象，path - 日志存储路径，为空则存入DefaultLogFileName内
+// NewZapLogger 实例化实现Logger接口的日志对象，path - 日志存储路径，为空则不存日志，打印在控制台上
 func NewZapLogger(path string) Logger {
 	encoderCfg := zap.NewProductionEncoderConfig()
 	encoderCfg.EncodeTime = zapcore.ISO8601TimeEncoder
 	encoderCfg.EncodeLevel = zapcore.CapitalLevelEncoder
 	encoder := zapcore.NewConsoleEncoder(encoderCfg)
 
-	logPath := DefaultLogFileName
-	if path != "" {
-		logPath = path
-	}
-
-	file, err := os.OpenFile(logPath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, os.ModeAppend|os.ModePerm)
+	ws, err := getWriteSyncer(path)
 	if err != nil {
 		panic(any(err))
 	}
-	ws := zapcore.NewMultiWriteSyncer(file)
 
 	// TODO 根据环境判断哪些日志应该写入 example:生产写入info以上，测试则所有日志都写入
 	logger := zap.New(zapcore.NewCore(encoder, ws, zapcore.DebugLevel), zap.AddCaller(), zap.AddStacktrace(zapcore.ErrorLevel))
@@ -84,4 +79,17 @@ func NewZapLogger(path string) Logger {
 	return &zapLogger{
 		logger: logger,
 	}
+}
+
+func getWriteSyncer(path string) (writer zapcore.WriteSyncer, err error) {
+	if path != "" {
+		writer, err = os.OpenFile(path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, os.ModeAppend|os.ModePerm)
+		if err != nil {
+			return nil, errors.Wrapf(err, "getWriteSyncer os.OpenFile fail, path:%s", path)
+		}
+	} else {
+		writer = os.Stdout
+	}
+
+	return zapcore.NewMultiWriteSyncer(writer), nil
 }
