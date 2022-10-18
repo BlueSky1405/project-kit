@@ -1,4 +1,4 @@
-module github.com/BlueSky/project-kit
+module github.com/BlueSky1405/project-kit
 
 go 1.18
 
