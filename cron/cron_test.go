@@ -1,8 +1,8 @@
 package cron
 
 import (
-	"BlueSky/project-kit/log"
 	"fmt"
+	"github.com/BlueSky1405/project-kit/log"
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"

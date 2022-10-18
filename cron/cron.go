@@ -1,7 +1,7 @@
 package cron
 
 import (
-	"BlueSky/project-kit/log"
+	"github.com/BlueSky1405/project-kit/log"
 	"github.com/pkg/errors"
 	"github.com/robfig/cron/v3"
 )
