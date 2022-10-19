@@ -78,7 +78,7 @@ func (c *Conn) CreateDB() {
 	createDbSQL := "CREATE DATABASE IF NOT EXISTS " + c.cfg.DatabaseName + " DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;"
 	err := c.GetDB().Exec(createDbSQL).Error
 	if err != nil {
-		panic("创建失败：" + err.Error() + " sql:" + createDbSQL)
+		panic(any("创建失败：" + err.Error() + " sql:" + createDbSQL))
 	}
 	fmt.Println(fmt.Sprintf("database: %v create success", c.cfg.DatabaseName))
 }
@@ -87,7 +87,7 @@ func (c *Conn) DropDB() {
 	dropDbSQL := "DROP DATABASE IF EXISTS " + c.cfg.DatabaseName + ";"
 	err := c.GetDB().Exec(dropDbSQL).Error
 	if err != nil {
-		panic("删除失败：" + err.Error() + " sql:" + dropDbSQL)
+		panic(any("删除失败：" + err.Error() + " sql:" + dropDbSQL))
 	}
 	fmt.Println(fmt.Sprintf("database: %v drop success", c.cfg.DatabaseName))
 }

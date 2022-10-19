@@ -19,9 +19,9 @@ func InitMigrateCmd(config *Config, do string, tables ...interface{}) {
 		migrateORM.DropDB()
 	case "migrate":
 		if err := orm.GetDB().AutoMigrate(tables...); err != nil {
-			panic(err)
+			panic(any(err))
 		}
 	default:
-		panic(fmt.Sprintf("no support do:%s", do))
+		panic(any(fmt.Sprintf("no support do:%s", do)))
 	}
 }
