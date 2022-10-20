@@ -48,6 +48,6 @@ RNZjOmLvkcoXdeuaCQIDAQAB
 	info, err := verifier.Verify(tokenStr)
 	require.NoError(t, err, "Verify")
 
-	assert.Equal(t, uint(2), info.UserID)
+	assert.Equal(t, int64(2), info.UserID)
 	assert.Equal(t, "大凶残", info.Post)
 }
