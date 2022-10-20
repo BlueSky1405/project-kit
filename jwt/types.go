@@ -8,6 +8,8 @@ type TokenInfo struct {
 	UserID int64 `json:"user_id,omitempty"`
 	// Post 职位
 	Post string `json:"post,omitempty"`
+	// StoreID 店铺id
+	StoreID int64 `json:"store_id,omitempty"`
 }
 
 // TokenClaims jwt claims
