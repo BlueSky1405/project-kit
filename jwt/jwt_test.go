@@ -38,7 +38,7 @@ RNZjOmLvkcoXdeuaCQIDAQAB
 	tokenGen, err := NewTokenGenerator(signingMethod, privateKey, WithExpires(time.Hour), WithProduct("financial"))
 	require.NoError(t, err, "NewTokenGenerator")
 
-	tokenStr, err := tokenGen.Generate(TokenInfo{UserID: 2, RoleID: 3})
+	tokenStr, err := tokenGen.Generate(TokenInfo{UserID: 2, Post: "大凶残"})
 	require.NoError(t, err, "Generate token")
 	fmt.Println(tokenStr)
 
@@ -49,5 +49,5 @@ RNZjOmLvkcoXdeuaCQIDAQAB
 	require.NoError(t, err, "Verify")
 
 	assert.Equal(t, uint(2), info.UserID)
-	assert.Equal(t, uint(3), info.RoleID)
+	assert.Equal(t, "大凶残", info.Post)
 }

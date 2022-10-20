@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+// TODO 更改测试用例的tokens
 func TestTokenVerifier_Verify(t *testing.T) {
 	type fields struct {
 		signingMethod SigningMethod
@@ -32,7 +33,7 @@ MCowBQYDK2VwAyEAWH7z6hpYqvPns2i4n9yymwvB3APhi4LyQ7iHOT6crtE=
 			},
 			want: &TokenInfo{
 				UserID: 1,
-				RoleID: 2,
+				Post:   "2",
 			},
 			wantErr: false,
 		},
@@ -47,7 +48,7 @@ MCowBQYDK2VwAyEAWH7z6hpYqvPns2i4n9yymwvB3APhi4LyQ7iHOT6crtE=
 			},
 			want: &TokenInfo{
 				UserID: 1,
-				RoleID: 2,
+				Post:   "2",
 			},
 			wantErr: false,
 		},
@@ -70,7 +71,7 @@ cQIDAQAB
 			},
 			want: &TokenInfo{
 				UserID: 1,
-				RoleID: 2,
+				Post:   "2",
 			},
 			wantErr: false,
 		},
@@ -87,7 +88,7 @@ cQIDAQAB
 				t.Errorf("TokenVerifier.Verify() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got.UserID != tt.want.UserID || got.RoleID != tt.want.RoleID {
+			if got.UserID != tt.want.UserID || got.Post != tt.want.Post {
 				t.Errorf("TokenVerifier.Verify() got = %v, want %v", got, tt.want)
 			}
 		})

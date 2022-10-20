@@ -6,8 +6,8 @@ import "github.com/golang-jwt/jwt/v4"
 type TokenInfo struct {
 	// UserID 用户ID
 	UserID uint `json:"user_id,omitempty"`
-	// RoleID 角色ID
-	RoleID uint `json:"role_id,omitempty"`
+	// Post 职位
+	Post string `json:"post,omitempty"`
 }
 
 // TokenClaims jwt claims

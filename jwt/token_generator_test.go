@@ -56,7 +56,7 @@ MC4CAQAwBQYDK2VwBCIEIEFMEZrmlYxczXKFxIlNvNGR5JQvDhTkLovJYxwQd3ua
 			args: args{
 				info: TokenInfo{
 					UserID: 1,
-					RoleID: 2,
+					Post:   "2",
 				},
 			},
 			wantErr: false,
@@ -72,7 +72,7 @@ MC4CAQAwBQYDK2VwBCIEIEFMEZrmlYxczXKFxIlNvNGR5JQvDhTkLovJYxwQd3ua
 			args: args{
 				info: TokenInfo{
 					UserID: 1,
-					RoleID: 2,
+					Post:   "2",
 				},
 			},
 			wantErr: false,
@@ -114,7 +114,7 @@ jo53mJsCgYEA0mHg7CvHnjx4D6yNa08YBbflD+jtcPoFVI8jb1c16Uwy4+k38aHc
 			args: args{
 				info: TokenInfo{
 					UserID: 1,
-					RoleID: 2,
+					Post:   "2",
 				},
 			},
 			wantErr: false,
