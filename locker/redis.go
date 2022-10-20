@@ -2,6 +2,7 @@ package locker
 
 import (
 	"context"
+	"github.com/BlueSky1405/project-kit/log"
 	"github.com/go-redis/redis/v8"
 	"github.com/pkg/errors"
 	"time"
@@ -15,6 +16,7 @@ type RedisLocker struct {
 	loop   int
 	loopWt int
 	rdb    *redis.Client
+	logger log.Logger
 }
 
 func (r *RedisLocker) SetLoop(loop int) {
@@ -40,12 +42,15 @@ func (r *RedisLocker) Lock(ctx context.Context, key string, dur time.Duration) e
 	return errors.New("RedisLocker obtain lock fail")
 }
 
-func (r *RedisLocker) Unlock(ctx context.Context, key string) error {
-	return r.rdb.Del(ctx, key).Err()
+func (r *RedisLocker) Unlock(ctx context.Context, key string) {
+	// TODO 错误重试机制
+	if err := r.rdb.Del(ctx, key).Err(); err != nil {
+		r.logger.ErrorW("RedisLocker release lock fail", "key", key)
+	}
 }
 
-func NewRedisLocker(rdb *redis.Client, options ...Option) Locker {
-	l := &RedisLocker{rdb: rdb}
+func NewRedisLocker(rdb *redis.Client, logger log.Logger, options ...Option) Locker {
+	l := &RedisLocker{rdb: rdb, logger: logger}
 
 	for _, opt := range options {
 		opt(l)

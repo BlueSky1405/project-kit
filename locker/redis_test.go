@@ -2,6 +2,7 @@ package locker
 
 import (
 	"context"
+	"github.com/BlueSky1405/project-kit/log"
 	"github.com/go-redis/redis/v8"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -15,15 +16,13 @@ func TestRedisLocker(t *testing.T) {
 		ReadTimeout:  500 * time.Millisecond,
 		WriteTimeout: 500 * time.Millisecond,
 	})
-	locker := NewRedisLocker(rdb, WithLoop(DefaultLockerLoop), WithLoopWaitTime(DefaultLockerLoopWaitTime))
+	locker := NewRedisLocker(rdb, log.NewZapLogger(""), WithLoop(DefaultLockerLoop), WithLoopWaitTime(DefaultLockerLoopWaitTime))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	key := "深圳的锁"
-	defer func() {
-		_ = locker.Unlock(ctx, key)
-	}()
+	key := "深圳的锁锁不住你的心"
+	defer locker.Unlock(ctx, key)
 
 	err := locker.Lock(ctx, key, 5*time.Second)
 	require.Nil(t, err)
