@@ -39,7 +39,7 @@ func NewTokenGenerator(signingMethod SigningMethod, privateKey []byte, opts ...O
 
 	g := &TokenGenerator{
 		signer:  signer,
-		expires: time.Hour, // default 1 hour
+		expires: 12*time.Hour, // default 12 hour
 		product: "default", // default product
 	}
 
