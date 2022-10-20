@@ -20,6 +20,17 @@
 │       └── mysql_test.go       // 测试及事例
 ├── go.mod
 ├── go.sum
+├── jwt
+│   ├── jwt_test.go             // 事例
+│   ├── parser.go
+│   ├── singer.go
+│   ├── token_generator.go      // token生成器
+│   ├── token_verifier.go       // token解析器
+│   └── types.go                // TokenInfo结构定义
+├── locker
+│   ├── locker.go               // 通用锁接口
+│   ├── redis.go                // 基于redis实现
+│   └── redis_test.go           // 测试及事例
 └── log
     ├── log.go                  // 日志通用接口
     ├── zap.go                  // zap日志实现
