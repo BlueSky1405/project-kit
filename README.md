@@ -15,6 +15,9 @@
 │   ├── cron.go                 // 定时器封装
 │   └── cron_test.go            // 测试及事例
 ├── database
+│   ├── mongodb
+│   │   ├── mongodb.go          // mongodb连接
+│   │   └── mongodb_test.go     // 测试及事例
 │   └── mysql
 │       ├── mysql.go            // mysql连接
 │       └── mysql_test.go       // 测试及事例
